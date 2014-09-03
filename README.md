@@ -1,0 +1,4 @@
+play-bootstrap
+==============
+
+Basic application
