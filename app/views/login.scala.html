@@ -1,0 +1,51 @@
+@(form: Form[(String,String)])(implicit header: controllers.Header, flash: Flash)
+
+@main("Log In") {
+
+<!-- header>
+<a href="@routes.Application.index" id="logo"><span>Zen</span>tasks</a>
+</header -->
+<section id="top">
+<div class="wrapper">
+    <h2>Sign in</h2>
+</div>
+</section>
+
+<div id="content" class="wrapper doc">
+
+  @helper.form(routes.Auth.authenticate, 'role->"form", 'class->"form-horizontal") {
+    <div class="col-xs-8">
+      <div class="form-group">
+        @form.globalError.map     {error    => <div class="alert alert-danger" role="alert">@error.message</div>}
+        @flash.get("success").map { message => <div class="alert alert-success" role="alert">@message</div> } 
+        @flash.get("failure").map { message => <div class="alert alert-warning" role="alert">@message</div> }
+      </div>
+
+      <div class="form-group">
+        <label for="email" class="col-sm-2 control-label">Email</label>
+        <div class="col-sm-6">
+        <!-- div class="input-group col-sm-10" -->
+          <!-- div class="input-group-addon">&#64;</div -->
+          <input class="form-control" type="email" name="email" placeholder="Email" id="email" value="@form("email").value">
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="password" class="col-sm-2 control-label">Password</label>
+        <div class="col-sm-6">
+          <input class="form-control" type="password" name="password" id="password" placeholder="Password">
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-6">
+          <button  class="btn btn-default" type="submit" id="loginbutton">Log In</button>
+        </div>
+      </div>
+    </div>
+    }
+  <p class="note">
+    <!-- Try <em>guillaume@@sample.com</em> with <em>secret</em> as password. -->
+  </p>
+</div>
+}
