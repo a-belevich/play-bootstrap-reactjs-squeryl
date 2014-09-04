@@ -40,7 +40,7 @@ object User extends Controller with MenuBuilder with Secured {
   
   lazy val changePasswordForm = Form(
     tuple("old" -> text, "new" -> text, "confirm" -> text)
- //   verifying ("Invalid email or username", result => result match {
+//   verifying ("Invalid email or username", result => result match {
 //      case (email, username) => Users.authenticate(email, password)
 //      case _ => false
 //    })
@@ -59,6 +59,4 @@ object User extends Controller with MenuBuilder with Secured {
       }
     )
   }
-
-
 }

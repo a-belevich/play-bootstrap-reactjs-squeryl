@@ -1,4 +1,4 @@
-play-bootstrap
-==============
+play-bootstrap-reactjs-squeryl
+===============================
 
 Basic application

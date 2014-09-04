@@ -46,4 +46,7 @@ POST /changepassword             controllers.User.changepassword
 # Authentication
 GET  /login                      controllers.Auth.login
 POST /login                      controllers.Auth.authenticate
+GET  /register                   controllers.Auth.userregistration
+POST /register                   controllers.Auth.registeruser
+
 GET  /logout                     controllers.Auth.logout

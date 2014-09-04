@@ -15,4 +15,9 @@ object Users {
     inTransaction {
       AppDB.users.where(u => u.email === email).headOption
     }
+  
+  def register(email: String, name: String, password: String) =
+    inTransaction {
+      AppDB.users.insert(User(email, name, password))
+    }
 }
