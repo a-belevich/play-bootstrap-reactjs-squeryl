@@ -6,7 +6,7 @@ import models._
 object AuthUtils {
   def username(request: RequestHeader) = request.session.get(Security.username)
   
-  def currentUser(request: RequestHeader) = username(request).flatMap(Users.findOneByUsername)
+  def currentUser(request: RequestHeader) = username(request).flatMap(Users.findOneByEmail)
   
   def withUser[T](request: RequestHeader, t: T) = currentUser(request).map(_ => t)
 }
@@ -25,7 +25,7 @@ trait Secured {
    * You will need to implement UserDAO.findOneByUsername
    */
   def withUser(f: User => Request[AnyContent] => Result) = withAuth { username => implicit request =>
-    Users.findOneByUsername(username).map { user => f(user)(request) }.getOrElse(onUnauthorized(request))
+    Users.findOneByEmail(username).map { user => f(user)(request) }.getOrElse(onUnauthorized(request))
   }
 }
 
