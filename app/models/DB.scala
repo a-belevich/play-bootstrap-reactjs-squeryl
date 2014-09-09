@@ -11,8 +11,6 @@ import SquerylHelper._
 abstract class ManyToManyObject() extends KeyedEntity[CompositeKey2[Long,Long]] {
 }
 
-case class User(val id: Long, val email: String, val name: String, val password: String) extends BusinessObject
-
 //  @Column("AUTHOR_ID") var authorId: Long, // the default 'exact match' policy can be overriden   
  
 object AppDB extends Schema {
