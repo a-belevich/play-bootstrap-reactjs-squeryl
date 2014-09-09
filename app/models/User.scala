@@ -18,6 +18,6 @@ object Users {
   
   def register(email: String, name: String, password: String) =
     inTransaction {
-      AppDB.users.insert(User(email, name, password))
+      AppDB.users.insert(User(0, email, name, password))
     }
 }

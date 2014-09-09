@@ -22,8 +22,8 @@ object Auth extends Controller with MenuBuilder {
     })
   )  
 
-  def login = Action { implicit request =>
-    Ok(views.html.login(loginForm))
+  def login(afterLoginUrl: String) = Action { implicit request =>
+    Ok(views.html.login(loginForm, afterLoginUrl: String))
   }
 
   def authenticate = Action { implicit request =>
@@ -49,24 +49,17 @@ object Auth extends Controller with MenuBuilder {
     case _ => Nil
   }
 
-  def validationResult(errors: Seq[ValidationError]) =   
-      if (errors.isEmpty) {
-        Valid
-      } else {
-        Invalid(errors)
-      }
+  def validationResult(errors: Seq[ValidationError]) = if (errors.isEmpty) Valid else Invalid(errors)
   
   def checkPasswordsAreEqual(password: String, passwordConfirm: String): Seq[ValidationError] = 
     if (password.equals(passwordConfirm)) Nil else Seq(ValidationError("Passwords are different"))
 
-  val passwordCheckConstraint: Constraint[(String, String, String, String)] = Constraint("constraints.passwordcheck")(result => {
-      val errors = checkPasswordsAreEqual(result._3, result._4) ++ checkPasswordQuality(result._3)
-      validationResult(errors)
-  })
+  val passwordCheckConstraint: Constraint[(String, String, String, String)] = Constraint("constraints.passwordcheck")(result => 
+      validationResult(checkPasswordsAreEqual(result._3, result._4) ++ checkPasswordQuality(result._3))
+  )
 
   def checkIsNotEmpty(field: String, message: String) = if (field.isEmpty()) Seq(ValidationError(message)) else Nil
   def checkIsAlreadyRegistered(email: String) = Users.findOneByEmail(email).map(_ => ValidationError("This email already was registered")).toList
-
   
   val checkEmail: Constraint[(String, String, String, String)] = Constraint("constraints.emailisnotregistered")(result => {
     val errors = checkIsNotEmpty(result._1, "E-mail is empty") ++ checkIsAlreadyRegistered(result._1)

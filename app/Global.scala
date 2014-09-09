@@ -18,7 +18,7 @@ object Global extends play.api.GlobalSettings {
       AppDB.drop
       AppDB.create
       
-      val userId = AppDB.users.insert(User("admin@site.com", "Administrator", "1234")).id 
+      val userId = Users.register("admin@site.com", "Administrator", "1234").id 
     }
   }
 
