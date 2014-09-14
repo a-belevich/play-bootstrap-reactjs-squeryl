@@ -10,6 +10,7 @@ import SquerylHelper._
 import play.api.libs.json._
 
 abstract class BusinessObject extends KeyedEntity[Long] {
+  def isNew = id == 0;
 }
 
 trait WithJson[T <: BusinessObject] {

@@ -7,6 +7,8 @@ import play.api.libs.json._
 import play.api.libs.functional.syntax._
 
 case class User(val id: Long, val email: String, val name: String, val password: String) extends BusinessObject with WithJson[User] {
+
+  def this() = this(0, "", "", "")
   
   implicit val reads: Reads[User] = (
     (__ \ "id").read[Long] and

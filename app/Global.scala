@@ -5,6 +5,7 @@ import play.api.db.DB
 import play.api.Play.current
 import play.api.mvc._
 import SquerylHelper._
+import controllers.RestApi
 
 object Global extends play.api.GlobalSettings {
 
@@ -28,7 +29,10 @@ object Global extends play.api.GlobalSettings {
 //  } else if (req.host == "bar.example.com") {
 //    bar.Routes.routes.lift(req)
 //  } else {
-    super.onRouteRequest(req)
-//  }
+
+    if (req.path.startsWith("/api/"))
+      RestApi.routes.lift(req)
+    else
+      super.onRouteRequest(req)
 }
 }
