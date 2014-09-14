@@ -7,7 +7,7 @@ import play.api.data.Forms._
 import models._
 import scala.util.Random
 
-object User extends Controller with MenuBuilder with Secured {
+object UserController extends Controller with MenuBuilder with Secured {
 
   lazy val editUserForm = Form(
     tuple("email" -> text, "username" -> text) // mapping(
@@ -29,7 +29,7 @@ object User extends Controller with MenuBuilder with Secured {
       userdata => {
          // save user from tuple userdata
          val saved = Random.nextBoolean
-         Redirect(routes.User.user).withSession(Security.username -> userdata._1).flashing(saved match {
+         Redirect(routes.UserController.user).withSession(Security.username -> userdata._1).flashing(saved match {
             case true => "success" -> s"User ${userdata._2 } has been updated"
             case _ => "failure" -> s"Could not update user ${userdata._2}"
           })

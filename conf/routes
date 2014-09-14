@@ -38,15 +38,14 @@ GET  /day                        controllers.Application.day(day: Int ?= 5)
 GET  /about                      controllers.Application.about
 GET  /contact                    controllers.Application.contact
 
-GET  /user                       controllers.User.user
-POST /user                       controllers.User.edituser
-GET  /changepassword             controllers.User.password
-POST /changepassword             controllers.User.changepassword
+GET  /user                       controllers.UserController.user
+POST /user                       controllers.UserController.edituser
+GET  /changepassword             controllers.UserController.password
+POST /changepassword             controllers.UserController.changepassword
 
 # Authentication
-GET  /login                      controllers.Auth.login
+GET  /login                      controllers.Auth.login(afterLoginAuth: String ?= "")
 POST /login                      controllers.Auth.authenticate
 GET  /register                   controllers.Auth.userregistration
 POST /register                   controllers.Auth.registeruser
-
 GET  /logout                     controllers.Auth.logout

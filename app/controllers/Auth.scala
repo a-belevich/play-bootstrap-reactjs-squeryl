@@ -15,26 +15,33 @@ object Auth extends Controller with MenuBuilder {
   lazy val loginForm = Form(
     tuple(
       "email" -> text,
-      "password" -> text
+      "password" -> text,
+      "nexturl" -> text
     ).verifying("Invalid email or password", result => result match {
-      case (email, password) => Users.authenticate(email, password)
+      case (email, password, nexturl) => Users.authenticate(email, password)
       case _ => false
     })
   )  
 
   def login(afterLoginUrl: String) = Action { implicit request =>
-    Ok(views.html.login(loginForm, afterLoginUrl: String))
+    Ok(views.html.login(loginForm.fill("", "", afterLoginUrl)))
   }
 
   def authenticate = Action { implicit request =>
     loginForm.bindFromRequest.fold(
       formWithErrors => BadRequest(views.html.login(formWithErrors)),
-      user => Redirect(routes.Application.index).withSession(Security.username -> user._1)
+      loggedIn => {
+        val nextUrl = loggedIn._3
+        if (nextUrl != "")
+          Redirect(nextUrl).withSession(Security.username -> loggedIn._1)
+        else
+          Redirect(routes.Application.index).withSession(Security.username -> loggedIn._1)
+      }
     )
   }
 
   def logout = Action {
-    Redirect(routes.Auth.login).withNewSession.flashing(
+    Redirect(routes.Auth.login("")).withNewSession.flashing(
       "success" -> "You are now logged out."
     )
   }

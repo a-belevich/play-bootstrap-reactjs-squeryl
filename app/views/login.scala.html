@@ -1,4 +1,4 @@
-@(form: Form[(String,String)])(implicit header: controllers.Header, flash: Flash)
+@(form: Form[(String,String,String)])(implicit header: controllers.Header, flash: Flash)
 
 @main("Log In") {
 
@@ -36,6 +36,8 @@
           <input class="form-control" type="password" name="password" id="password" placeholder="Password">
         </div>
       </div>
+
+      <input class="hidden" type="hidden" name="nexturl" id="nexturl" value="@flash.get("nextUrl").map(message => message)" />
 
       <div class="form-group">
         <div class="col-sm-offset-2 col-sm-6">
