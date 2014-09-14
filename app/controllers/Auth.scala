@@ -23,8 +23,8 @@ object Auth extends Controller with MenuBuilder {
     })
   )  
 
-  def login(afterLoginUrl: String) = Action { implicit request =>
-    Ok(views.html.login(loginForm.fill("", "", afterLoginUrl)))
+  def login = Action { implicit request =>
+    Ok(views.html.login(loginForm))
   }
 
   def authenticate = Action { implicit request =>
@@ -41,9 +41,7 @@ object Auth extends Controller with MenuBuilder {
   }
 
   def logout = Action {
-    Redirect(routes.Auth.login("")).withNewSession.flashing(
-      "success" -> "You are now logged out."
-    )
+    Redirect(routes.Auth.login).withNewSession.flashing("success" -> "You are now logged out.")
   }
 
   val allNumbers = """\d*""".r

@@ -14,8 +14,7 @@ object AuthUtils {
 trait Secured {
   self: Controller =>
 
-  def onUnauthorized(request: RequestHeader) = Results.Redirect(routes.Auth.login("")).flashing("nextUrl" -> request.path)
-
+  def onUnauthorized(request: RequestHeader) = Results.Redirect(routes.Auth.login).flashing("nextUrl" -> request.path)
   
   def withAuth(f: => String => Request[AnyContent] => Result) = {
     Security.Authenticated(AuthUtils.username, onUnauthorized) { user => Action(request => f(user)(request)) }

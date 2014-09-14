@@ -44,7 +44,7 @@ GET  /changepassword             controllers.UserController.password
 POST /changepassword             controllers.UserController.changepassword
 
 # Authentication
-GET  /login                      controllers.Auth.login(afterLoginAuth: String ?= "")
+GET  /login                      controllers.Auth.login
 POST /login                      controllers.Auth.authenticate
 GET  /register                   controllers.Auth.userregistration
 POST /register                   controllers.Auth.registeruser
