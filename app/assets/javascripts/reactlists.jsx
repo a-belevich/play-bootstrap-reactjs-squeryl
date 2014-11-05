@@ -14,11 +14,11 @@ var ReactListsMixin = {
     return this.props.data.items.filter(this.isOnLeftSide);
   },
 
-  renderLeftItem: function(item) { return this.renderItem(item, "left"); },
-  renderRightItem: function(item) { return this.renderItem(item, "right"); },
+  renderLeftItem: function(item) { return this.renderItem(item, "right"); },
+  renderRightItem: function(item) { return this.renderItem(item, "left"); },
   
-  renderItem: function(item, list) { return (
-    <ReactListsItem key={"" + list + item.id} item={item} onDoubleClick={this.move} />
+  renderItem: function(item, direction) { return (
+    <ReactListsItem key={item.id} item={item} direction={direction} onDoubleClick={this.move} />
 //    <div key={item.id} onDblClick={ this.move(item.id)}>{ item.caption }</div>
   );},
   
@@ -51,13 +51,44 @@ var ReactListsMixin = {
 };
 
 var ReactListsItem = React.createClass({
-  onDoubleClick: function() {
-    this.props.onDoubleClick(this.props.item.id);
+
+  getInitialState: function() {
+    return { active: false };
   },
 
-  render: function() { return (
-    <div className="reactlistitem" onDoubleClick={ this.onDoubleClick }>{ this.props.item.caption }</div>
-  );}
+  onClick: function() {
+    this.props.onDoubleClick(this.props.item.id);
+  },
+  
+  onMouseEnter: function() {
+//    $(this.refs.btn.getDOMNode()).fadeTo(1,1);
+    this.setState({ active: true });
+  },
+  
+  onMouseLeave: function() {
+//    $(this.refs.btn.getDOMNode()).fadeTo(1,0);
+    this.setState({ active: false });
+  },
+
+  renderButton: function(direction, caption) { 
+    var textLeft = ((direction == "right") ? caption : "");
+    var textRight = ((direction == "right") ? "" : caption);
+
+    return (
+      <button ref="btn" type="button" className="btn btn-default btn-sm">
+        { textLeft } <span className={ "glyphicon glyphicon-chevron-" + direction }></span> { textRight }
+      </button>
+    );
+  },
+  
+  render: function() {
+      var content = (this.state.active) ? this.renderButton(this.props.direction, this.props.item.caption) : this.props.item.caption;
+      return (
+        <div className="reactlistitem" onClick={ this.onClick } onMouseEnter={ this.onMouseEnter } onMouseLeave={ this.onMouseLeave } >
+          { content }
+        </div>
+      );
+  }
 });
 
 var ReactLists = React.createClass({
