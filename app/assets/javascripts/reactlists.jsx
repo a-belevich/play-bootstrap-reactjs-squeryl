@@ -70,6 +70,14 @@ var ReactListsItem = React.createClass({
     this.setState({ active: false });
   },
 
+  onTouchStart: function() {
+    this.setState({ active: true });
+  },
+  
+  onTouchEnd: function() {
+    this.setState({ active: false });
+  },
+
   renderButton: function(direction, caption) { 
     var textLeft = ((direction == "right") ? caption : "");
     var textRight = ((direction == "right") ? "" : caption);
@@ -84,7 +92,8 @@ var ReactListsItem = React.createClass({
   render: function() {
       var content = (this.state.active) ? this.renderButton(this.props.direction, this.props.item.caption) : this.props.item.caption;
       return (
-        <div className="reactlistitem" onClick={ this.onClick } onMouseEnter={ this.onMouseEnter } onMouseLeave={ this.onMouseLeave } >
+        <div className="reactlistitem" onClick={ this.onClick } onMouseEnter={ this.onMouseEnter } onMouseLeave={ this.onMouseLeave }
+          onTouchStart={ this.onTouchStart } onTouchEnd={ this.onTouchEnd } >
           { content }
         </div>
       );
