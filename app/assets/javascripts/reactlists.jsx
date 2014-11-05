@@ -75,7 +75,7 @@ var ReactListsItem = React.createClass({
     var textRight = ((direction == "right") ? "" : caption);
 
     return (
-      <button ref="btn" type="button" className="btn btn-default btn-sm">
+      <button ref="btn" type="button" className="btn btn-default btn-sm btn-block">
         { textLeft } <span className={ "glyphicon glyphicon-chevron-" + direction }></span> { textRight }
       </button>
     );
