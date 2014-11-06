@@ -23,12 +23,13 @@ var ReactListsMixin = {
   );},
   
   move: function(id) {
-    var index = this.state.right.findIndex(item => item.id === id);
+    var findId = function(item) { return (item.id === id); };
+    var index = this.state.right.findIndex(findId);
 
     if (index >= 0)
         this.state.right.splice(index, 1);
     else {
-      index = this.props.data.items.findIndex(item => item.id === id);
+      index = this.props.data.items.findIndex(findId);
       if (index >= 0)
         this.state.right.push(this.props.data.items[index]);
     }
