@@ -64,56 +64,50 @@
   content<br/>
   content<br/>
   content<br/>
+  <div id="listsEditor"/>
   content<br/>
-  content<br/>
-  content<br/>
-  content<br/>
-  content<br/>
-  content<br/>
-  content<br/>
-  content<br/>
-  content<br/>
-  content<br/>
-  content<br/>
-  content<br/>
-  content<br/>
-  content<br/>
-  content<br/>
-  content<br/>
-  content<br/>
-  content<br/>
-  content<br/>
-  content<br/>
-  content<br/>
-  content<br/>
-  content<br/>
-  content<br/>
-  content<br/>
-  content<br/>
-  content<br/>
-  content<br/>
-  content<br/>
-  content<br/>
-  content<br/>
-  content<br/>
-  content<br/>
-  content<br/>
-  content<br/>
-  content<br/>
-  content<br/>
-  content<br/>
-  content<br/>
-  content<br/>
-  content<br/>
-  content<br/>
-  content<br/>
-  content<br/>
-  content<br/>
-  content<br/>
+  <div id="gridEditor"/>
 </div>
 
 
 <!-- div style="width: 100%;">
 @play20.welcome(message)
 </div -->
+
+<script>
+
+var data = [
+  {"id":22,"caption":"AAA", "city": "City AAA", "country": "Country AAA"},
+  {"id":23,"caption":"BBB", "city": "City BBB", "country": "Country BBB"},
+  {"id":24,"caption":"CCC", "city": "City CCC", "country": "Country CCC"},
+  {"id":25,"caption":"DDD", "city": "City DDD", "country": "Country DDD"},
+  {"id":26,"caption":"EEE", "city": "City EEE", "country": "Country EEE"},
+  {"id":21,"caption":"FFF", "city": "City FFF", "country": "Country FFF"},
+  {"id":27,"caption":"GGG", "city": "City GGG", "country": "Country GGG"},
+  {"id":28,"caption":"HHH", "city": "City HHH", "country": "Country HHH"},
+  {"id":29,"caption":"III", "city": "City III", "country": "Country III"},
+  {"id":30,"caption":"JJJ", "city": "City JJJ", "country": "Country JJJ"}
+];
+
+React.renderComponent(ReactGrid({ 
+	data: { lines: data },  
+	lineNode: ReactGridRow,  
+	editorTitle: "Edit", 
+	localMode: 1,
+	newPrototype: newTeamPrototype,
+	nodeClass: "dataRow",
+	saveTo: "/api/data",
+	columns: [
+	    //{id: "id",      caption: "ID",      width: "10%", set: function(data, value) { if (value) data.id = value; }, readOnly: true },
+	    {id: "caption", caption: "Caption", width: "30%" },
+	    {id: "city",    caption: "City",    width: "30%" },
+	    {id: "country", caption: "Country", width: "30%", get: function(value) { return value.toUpperCase(); } }
+	]}),  document.getElementById("gridEditor")
+);
+		
+
+React.renderComponent(ReactLists( {data:{ items: data}, title:"Select", localMode:"1", 
+  width:"col-sm-12", widthLeft:"col-sm-offset-1 col-sm-4", widthRight:"col-sm-offset-2 col-sm-4"} ),  document.getElementById("listsEditor"));
+
+</script>
 }
