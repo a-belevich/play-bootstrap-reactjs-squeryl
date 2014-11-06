@@ -60,14 +60,15 @@
 <div id="content" class="wrapper doc">
   Index page content<br/>
   content<br/>
-  content<br/>
-  content<br/>
-  content<br/>
-  content<br/>
   <div id="listsEditor"/>
   content<br/>
-  <div id="gridEditor"/>
+  content<br/>
+  content<br/>
+  content<br/>
+  content<br/>
 </div>
+
+<div id="gridEditor"/>
 
 
 <!-- div style="width: 100%;">
@@ -94,7 +95,7 @@ React.renderComponent(ReactGrid({
 	lineNode: ReactGridRow,  
 	editorTitle: "Edit", 
 	localMode: 1,
-	newPrototype: newTeamPrototype,
+	newPrototype: {id:0,caption:"", city: "", country: "Country"},
 	nodeClass: "dataRow",
 	saveTo: "/api/data",
 	columns: [
